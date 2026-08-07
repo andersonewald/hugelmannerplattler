@@ -7,8 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Configurações de Desenvolvimento (Mantenha assim por enquanto)
 SECRET_KEY = 'django-insecure-chave-provisoria-hugel-manner'
 DEBUG = True
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['andersonewald.pythonanywhere.com', 'localhost', '127.0.0.1']
 # Aplicações instaladas no projeto
 INSTALLED_APPS = [
     'django.contrib.admin',
