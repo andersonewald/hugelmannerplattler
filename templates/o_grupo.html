@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}O Grupo - Hügel Männer Plattler{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container principal centralizado e com largura controlada para leitura */
+    .about-container {
+        max-width: 800px; /* Largura ideal para leitura de textos longos */
+        margin: 40px auto; /* Centraliza na tela e dá margem acima/abaixo */
+        padding: 0 25px;   /* Margem interna de segurança para telas de celular */
+    }
+
+    /* Container do brasão para garantir a centralização */
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px; /* Espaço entre o brasão e o título */
+    }
+
+    /* Estilização do brasão */
+    .about-logo {
+        height: 120px; /* Altura ideal para destaque na página de história */
+        width: auto;
+        object-fit: contain;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        color: var(--text-color);
+        text-align: center; /* Centraliza o título "Nossa História" */
+    }
+
+    /* Bloco de texto com formatação limpa e justificada */
+    .text-block {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Espaçamento idêntico entre cada parágrafo */
+    }
+
+    .text-block p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+        text-align: justify; /* Texto perfeitamente justificado */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <div class="logo-container">
+        <img src="/media/brasao.png" alt="Brasão Hügel Männer Plattler" class="about-logo">
+    </div>
+
+    <h2 class="section-title">O Grupo</h2>
+    
+    <div class="text-block">
+        <p>O grupo folclórico Hügelmänner Plattler é um grupo criado em julho de 2015 como categoria adjacente ao grupo folclórico Bergfreunde de Campinho. O nome Hügelmänner remete a “homens das montanhas” e o nome “Plattler” é um tipo de sapateado executado somente pelos homens para sua própria diversão, competições, e conquista das damas na antiguidade. O grupo tem como seu principal objetivo a preservação da cultura trazida pelos imigrantes à região de Domingos Martins no Espírito Santo.</p>
+        
+        <p>Em 26 de Novembro de 2016 foi fundado o Grupo de Danças Hügelmänner Plattler em Domingos Martins. Embora não seja um grupo relativamente antigo, foi fundado como um adjacente do Grupo Folclórico Bergfreunde de Campinho, que é o grupo folclórico alemão mais antigo do Espírito Santo (39 anos).</p>
+        
+        <p>Quando houve a Imigração Alemã em nosso estado, foram diversas regiões que colonizaram. Existem várias vertentes culturais aqui, onde as danças representadas pelo grupo são da região do sul da Alemanha, Áustria e as regiões de língua alemã do norte da Itália.</p>
+        
+        <p>Somos de Domingos Martins, região serrana do Estado do Espírito Santo, a cerca de 50 quilômetros da capital Vitória. Em nossa localidade chegaram os primeiros imigrantes alemães ao Estado, em meados do século XIX.</p>
+        
+        <p>Hoje fomentamos as tradições alpinas, trazendo novas inspirações à Serra Capixaba, com alegria e destacada qualidade técnica.</p>
+        
+        <p>O nome Hügelmänner em sua tradução literal significa homem montanhês, onde seu significado são Homens das Montanhas. Foi feita essa escolha de nome devido ao local onde o grupo “reside” e por ser um grupo formado somente por homens. Já o Plattler vem do tipo de dança que o grupo apresenta, o Schuhplattler.</p>
+    </div>
+</div>
+{% endblock %}

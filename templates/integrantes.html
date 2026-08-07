@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}Integrantes - Hügel Männer Plattler{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container principal */
+    .mural-container {
+        max-width: 1200px; /* Largura ideal para acomodar bem as 6 colunas */
+        margin: 40px auto;
+        padding: 0 25px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        color: var(--text-color);
+        text-align: center;
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem;
+        color: #57534e;
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: 300;
+    }
+
+    /* 🌟 GRID DO MURAL: Configurado para 6 integrantes por linha */
+    .mural-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 6 colunas iguais */
+        gap: 20px; /* Espaçamento ideal para 6 colunas */
+    }
+
+    /* Responsividade: Ajusta o mural dinamicamente para telas menores */
+    @media (max-width: 1024px) {
+        .mural-grid {
+            grid-template-columns: repeat(3, 1fr); /* 3 por linha em telas médias */
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mural-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 por linha em tablets */
+            gap: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mural-grid {
+            grid-template-columns: 1fr; /* 1 por linha em celulares */
+            gap: 15px;
+        }
+    }
+
+    /* Estilo de cada Card de Integrante */
+    .integrante-card {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .integrante-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: var(--orange-accent);
+    }
+
+    /* Container da Foto */
+    .integrante-foto-wrapper {
+        width: 100%;
+        position: relative;
+        padding-top: 115%; /* Proporção ideal para retratos */
+        background: #e7e5e4;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(249, 115, 22, 0.1);
+    }
+
+    .integrante-foto-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .integrante-card:hover .integrante-foto-wrapper img {
+        transform: scale(1.03);
+    }
+
+    /* INFORMAÇÕES ABAIXO DA FOTO */
+    .integrante-info {
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .integrante-nome {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 4px;
+        text-transform: capitalize;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Adiciona '...' se o nome for muito comprido para a coluna */
+    }
+
+    /* Estilo para o Instagram */
+    .integrante-instagram {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.85rem;
+        color: #e1306c;
+        text-decoration: none;
+        margin-bottom: 10px;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+    }
+
+    .integrante-instagram:hover {
+        opacity: 0.8;
+    }
+
+    .integrante-data {
+        font-size: 0.75rem;
+        color: #6b6661;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-top: 1px solid rgba(41, 37, 36, 0.08);
+        padding-top: 8px;
+        margin-top: 3px;
+    }
+
+    .integrante-data i {
+        color: var(--orange-accent);
+        font-size: 0.75rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mural-container">
+    <h2 class="section-title">Integrantes</h2>
+    <p class="section-subtitle">Os homens das montanhas que mantêm viva a nossa tradição</p>
+
+    <div class="mural-grid">
+        {% for integrante in integrantes %}
+        <div class="integrante-card">
+            <div class="integrante-foto-wrapper">
+                <img src="{{ integrante.foto.url }}" alt="{{ integrante.nome }}">
+            </div>
+            <div class="integrante-info">
+                <h3 class="integrante-nome" title="{{ integrante.nome }}">{{ integrante.nome }}</h3>
+                
+                <a href="https://instagram.com/{{ integrante.instagram|cut:'@' }}" target="_blank" class="integrante-instagram">
+                    <i class="fab fa-instagram"></i> 
+                    {% if '@' in integrante.instagram %}{{ integrante.instagram }}{% else %}@{{ integrante.instagram }}{% endif %}
+                </a>
+
+                <span class="integrante-data">
+                    <i class="fas fa-calendar-alt"></i> {{ integrante.no_grupo_desde }}
+                </span>
+            </div>
+        </div>
+        {% empty %}
+        <p style="grid-column: span 6; text-align: center; color: #6b6661; padding: 40px 0;">
+            Nenhum integrante cadastrado no momento.
+        </p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

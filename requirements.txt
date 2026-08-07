@@ -1,0 +1,8 @@
+# ⚡ Framework Principal
+Django>=5.0,<6.0
+
+# 🖼️ Manipulação de Imagens (Obrigatório para os ImageField dos Cards e Integrantes)
+Pillow>=10.0.0
+
+# 🌍 Suporte a Fuso Horário e Datas (Usado na Agenda e no settings.py)
+tzdata

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: hugel_manner_web
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      # 🌟 CONCEITO DE PASTA: Mapeia tudo da pasta atual para dentro do container
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1

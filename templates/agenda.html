@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block title %}Agenda | Hügel Männer Plattler{% endblock %}
+{% block extra_css %}
+<style>
+    /* Container principal - Alinhado com o padrão das outras páginas */
+    .agenda-container { 
+        max-width: 900px; 
+        margin: 40px auto; 
+        padding: 0 25px; 
+    }
+
+    /* 🌟 TITULO: Igual ao padrão de Integrantes e Blog */
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 40px;
+        color: var(--text-color);
+        text-align: center;
+    }
+
+    /* Lista de eventos empilhados */
+    .agenda-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Espaçamento entre os cards de eventos */
+    }
+
+    /* 🌟 CARD DE EVENTO: Estilizado no mesmo padrão do mural */
+    .event-card { 
+        display: flex; 
+        padding: 20px 25px; 
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 8px; 
+        align-items: center; 
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .event-card:hover {
+        transform: translateY(-3px); /* Efeito sutil de flutuação */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: var(--orange-accent);
+    }
+
+    /* 🌟 DATA: Destaque estilizado */
+    .event-date { 
+        width: 15%; 
+        font-size: 1.5rem; 
+        font-weight: 600; 
+        color: var(--orange-accent); /* Destaque na cor do grupo */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.1;
+    }
+    
+    .event-date span {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #6b6661;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+
+    /* Informações do Evento */
+    .event-info { 
+        width: 65%; 
+        padding: 0 15px;
+    }
+    
+    .event-info h3 { 
+        font-size: 1.2rem;
+        font-weight: 600; 
+        color: var(--text-color);
+        margin: 0 0 6px 0; 
+    }
+    
+    .event-info p { 
+        font-size: 0.9rem; 
+        color: #6b6661;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* 🌟 IMAGEM DO CARD: Ajustada para integrar suavemente ao layout */
+    .event-banner {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 15px;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .event-banner:hover {
+        transform: scale(1.02); /* Leve zoom ao passar o mouse */
+    }
+
+    /* Ação (Botão) */
+    .event-action { 
+        width: 20%; 
+        text-align: right; 
+    }
+    
+    /* 🌟 BOTÃO: Atualizado para combinar com o design */
+    .btn-ticket { 
+        display: inline-block; 
+        padding: 10px 22px; 
+        border: 1px solid var(--orange-accent); 
+        border-radius: 6px;
+        text-decoration: none; 
+        color: var(--orange-accent); 
+        font-size: 0.85rem; 
+        font-weight: 600;
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        transition: all 0.3s ease; 
+    }
+    
+    .btn-ticket:hover { 
+        background: var(--orange-accent); 
+        color: #fff; 
+    }
+
+    /* Responsividade para Celulares */
+    @media (max-width: 600px) {
+        .event-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+        }
+        .event-date, .event-info, .event-action {
+            width: 100%;
+            text-align: left;
+            padding: 0;
+        }
+        .event-date {
+            flex-direction: row;
+            align-items: baseline;
+            gap: 8px;
+            border-bottom: 1px solid rgba(41, 37, 36, 0.08);
+            padding-bottom: 10px;
+        }
+        .event-banner {
+            max-width: 100%; /* O card ocupa a largura total no celular */
+        }
+        .event-action {
+            margin-top: 5px;
+        }
+        .btn-ticket {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="agenda-container">
+    <h2 class="section-title">Próximas Apresentações</h2>
+    
+    <div class="agenda-list">
+        {% for evento in eventos %}
+        <div class="event-card">
+            <div class="event-date">
+                {{ evento.data_inicio|date:"d" }}
+                <span>{{ evento.data_inicio|date:"M" }}</span>
+            </div>
+            
+            <div class="event-info">
+                <h3>{{ evento.nome }}</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt" style="color: var(--orange-accent); font-size: 0.85rem;"></i>
+                    {{ evento.local }} — {{ evento.horario }}
+                </p>
+
+                {% if evento.card_divulgacao %}
+                    <img src="{{ evento.card_divulgacao.url }}" alt="Card do evento {{ evento.nome }}" class="event-banner">
+                {% endif %}
+            </div>
+            
+            <div class="event-action">
+                {% if evento.link_ingresso %}
+                    <a href="{{ evento.link_ingresso }}" target="_blank" class="btn-ticket">Informações</a>
+                {% else %}
+                    <span class="btn-ticket" style="border-color: #ccc; color: #999; cursor: default; background: transparent;">Gratuito</span>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center; color: #6b6661; padding: 40px 0;">Nenhuma apresentação agendada no momento. Volte em breve!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Contato - Hügel Männer Plattler{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Container Principal - Agora com o fundo unificado */
+    .contact-container {
+        max-width: 950px;
+        margin: 40px auto;
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 40px;
+        align-items: start;
+        
+        /* Estilos do fundo do cartão aplicados ao container todo */
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .contact-container {
+            grid-template-columns: 1fr;
+            padding: 25px;
+        }
+    }
+
+    /* Coluna de Informações */
+    .contact-info h1 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        color: var(--text-color);
+    }
+
+    .contact-info p {
+        margin-bottom: 30px;
+        color: #57534e;
+        line-height: 1.6;
+    }
+
+    .info-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .info-item i {
+        font-size: 1.2rem;
+        color: var(--orange-accent);
+        width: 25px;
+    }
+
+    /* Coluna do Formulário - Fundo removido pois o container pai já possui */
+    .contact-form {
+        background: transparent;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid rgba(41, 37, 36, 0.2);
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--text-color);
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--orange-accent);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--text-color);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+        background: #44403c;
+        transform: translateY(-1px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <div class="contact-info">
+        <h1>Contato</h1>
+        <p>Leve a energia e a tradição do Hügel Männer Plattler para o seu evento. Entre em contato conosco para orçamentos, apresentações ou parcerias.</p>
+        
+        <div class="info-details">
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>hugelmannerplattler@gmail.com</span>
+            </div>
+
+            <div class="info-item">
+                <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.3rem;"></i>
+                <a href="https://wa.me/5527997806200" target="_blank" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='var(--orange-accent)'" onmouseout="this.style.color='inherit'">
+                    (27) 99780-6200
+                </a>
+            </div>
+
+            <div class="info-item">
+                <i class="fab fa-instagram"></i>
+                <span>@hugelmannerplattler</span>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Domingos Martins, Espírito Santo, Brasil</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 12px; margin-bottom: 15px; border-radius: 6px; background-color: {% if message.tags == 'success' %}#d1fae5; color: #065f46;{% else %}#fee2e2; color: #991b1b;{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Nome / Organização</label>
+                <input type="text" id="name" name="name" required placeholder="Ex: Comissão da Oktoberfest">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required placeholder="seu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Assunto</label>
+                <input type="text" id="subject" name="subject" required placeholder="Ex: Convite para apresentação">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Mensagem</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Descreva os detalhes do evento (data, local, etc)..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Enviar Mensagem</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
