@@ -4,12 +4,98 @@
 
 {% block extra_css %}
 <style>
-    /* 🌟 SOBRESCREVE A IMAGEM DO BASE */
+    /* 🌟 SOBRESCREVE A IMAGEM DE FUNDO DO BASE */
     body::before {
         background-image: url('/media/background/background.png') !important;
     }
 
-    /* Centraliza o conteúdo na tela sem estourar a largura em telas pequenas */
+    /* 📱 AJUSTES DO HEADER / MENU NAVEGAÇÃO PARA MOBILE */
+    @media (max-width: 768px) {
+        header, .navbar, .header-container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 12px 20px !important;
+            position: relative !important;
+            z-index: 1000 !important;
+        }
+
+        /* Esconde os links do menu por padrão no mobile */
+        nav ul, .nav-links, .menu-links, #navMenu {
+            display: none;
+            flex-direction: column !important;
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            width: 100% !important;
+            background: rgba(255, 248, 240, 0.98) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            padding: 20px 0 !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+            gap: 15px !important;
+            align-items: center !important;
+            margin: 0 !important;
+            border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+        }
+
+        /* Classe para abrir o menu suspenso */
+        nav ul.active, .nav-links.active, .menu-links.active, #navMenu.active {
+            display: flex !important;
+        }
+
+        nav a, .nav-links a, .menu-links a {
+            font-size: 0.95rem !important;
+            font-weight: 600 !important;
+            color: #2c2c2c !important;
+            text-decoration: none !important;
+            white-space: nowrap !important;
+            padding: 8px 16px !important;
+            width: 100% !important;
+            text-align: center !important;
+        }
+
+        /* Botão Três Tracinhos (Hambúrguer) */
+        .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            width: 28px !important;
+            height: 20px !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 0 !important;
+            z-index: 1001 !important;
+        }
+
+        .mobile-menu-btn span {
+            width: 100% !important;
+            height: 3px !important;
+            background-color: #2c2c2c !important;
+            border-radius: 2px !important;
+            transition: all 0.3s ease-in-out !important;
+        }
+
+        /* Animação para transformar o botão em X quando ativo */
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(8.5px) rotate(45deg);
+        }
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-8.5px) rotate(-45deg);
+        }
+    }
+
+    @media (min-width: 769px) {
+        .mobile-menu-btn {
+            display: none !important;
+        }
+    }
+
+    /* 🌟 HERO CONTAINER & CARD PRINCIPAL */
     .hero-container {
         display: flex;
         flex-direction: column;
@@ -24,7 +110,6 @@
         overflow-x: hidden;
     } 
 
-    /* 🌟 CARD PRINCIPAL DO HERO (Glassmorphism) */
     .hero-content {
         text-align: center;
         color: var(--text-color, #ffffff);
@@ -32,8 +117,6 @@
         max-width: 850px;
         width: 100%;
         box-sizing: border-box;
-
-        /* Estilização do Card Translúcido */
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -123,7 +206,6 @@
         z-index: 2;
     }
 
-    /* Formatos dinâmicos para estilo Mosaico */
     .mosaic-item:nth-child(5n+1) { grid-column: span 2; grid-row: span 2; }
     .mosaic-item:nth-child(5n+3) { grid-row: span 2; }
 
@@ -138,7 +220,7 @@
         transform: scale(1.08);
     }
 
-    /* 🤝 BANNER SLIDESHOW DE PARCEIROS E APOIADORES */
+    /* 🤝 BANNER PARCEIROS */
     .partners-section {
         margin: 40px auto 0;
         width: 100%;
@@ -146,8 +228,6 @@
         padding: 25px 30px;
         text-align: center;
         box-sizing: border-box;
-
-        /* Estilização padronizada com o hero-content */
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -226,7 +306,7 @@
         animation-play-state: paused;
     }
 
-    /* 📱 AJUSTES RESPONSIVOS PARA MOBILE */
+    /* 📱 AJUSTES MOBILE DE CONTEÚDO */
     @media (max-width: 768px) {
         .hero-container {
             padding: 0 15px 30px;
@@ -380,7 +460,7 @@
     {% endif %}
 </section>
 
-<!-- 🔍 MODAL LIGHTBOX PARA ABRIR A FOTO EM DESTAQUE -->
+<!-- 🔍 MODAL LIGHTBOX -->
 <div id="lightbox" class="modal-lightbox" onclick="closeLightbox()">
     <div class="modal-content-wrapper" onclick="event.stopPropagation()">
         <span class="modal-close" onclick="closeLightbox()">&times;</span>
@@ -389,6 +469,7 @@
 </div>
 
 <script>
+    /* Lightbox Modal */
     function openLightbox(url) {
         document.getElementById('lightbox-img').src = url;
         document.getElementById('lightbox').classList.add('active');
@@ -401,6 +482,35 @@
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             closeLightbox();
+        }
+    });
+
+    /* Lógica Automática para o Botão Hambúrguer Mobile */
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('header, .navbar, .header-container');
+        const navMenu = document.querySelector('nav ul, .nav-links, .menu-links, #navMenu');
+
+        if (header && navMenu && !document.querySelector('.mobile-menu-btn')) {
+            const btn = document.createElement('button');
+            btn.className = 'mobile-menu-btn';
+            btn.setAttribute('aria-label', 'Abrir menu');
+            btn.innerHTML = '<span></span><span></span><span></span>';
+
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                btn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            header.appendChild(btn);
+
+            /* Fecha ao clicar fora */
+            document.addEventListener('click', function(e) {
+                if (!header.contains(e.target)) {
+                    btn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
         }
     });
 </script>
