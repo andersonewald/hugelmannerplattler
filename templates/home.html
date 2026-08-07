@@ -9,10 +9,8 @@
         background-image: url('/media/background/background.png') !important;
     }
 
-  /* Centraliza o conteúdo na tela */
-
+    /* Centraliza o conteúdo na tela */
     .hero-container {
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -21,22 +19,33 @@
         width: 100%;
         background: transparent;
         padding-bottom: 30px;
-
     } 
 
+    /* 🌟 CARD PRINCIPAL DO HERO (Glassmorphism) */
     .hero-content {
         text-align: center;
         color: var(--text-color, #ffffff);
-        padding: 20px;
-        max-width: 800px;
+        padding: 45px 35px;
+        max-width: 850px;
+        width: 100%;
+        box-sizing: border-box;
+
+        /* Estilização do Card Translúcido */
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
 
     .hero-content h1 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 3px;
         margin-bottom: 20px;
+        line-height: 1.15;
     }
 
     .hero-content p {
@@ -44,24 +53,26 @@
         font-weight: 400;
         letter-spacing: 1px;
         margin-bottom: 35px;
+        color: var(--text-color);
     }
 
     .hero-btn {
         display: inline-block;
         padding: 12px 35px;
-        border: 2px solid var(--text-color, #ffffff);
-        color: var(--text-color, #ffffff);
+        border: 2px solid var(--text-color);
+        color: var(--text-color);
         text-decoration: none;
         text-transform: uppercase;
         font-size: 0.9rem;
         font-weight: 600;
         letter-spacing: 2px;
+        border-radius: 6px;
         transition: all 0.3s ease;
     }
 
     .hero-btn:hover {
-        background: var(--text-color, #ffffff);
-        color: #000000; 
+        background: var(--text-color);
+        color: #ffffff; 
         transform: translateY(-2px);
     }
 
@@ -113,6 +124,22 @@
     @media (max-width: 600px) {
         .mosaic-item:nth-child(5n+1) { grid-column: span 1; grid-row: span 1; }
         .mosaic-item:nth-child(5n+3) { grid-row: span 1; }
+        
+        .hero-content {
+            padding: 30px 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.2rem;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+        }
+
+        .partners-section {
+            padding: 20px 15px;
+        }
     }
 
     .mosaic-img {
@@ -126,30 +153,32 @@
         transform: scale(1.08);
     }
 
-    /* 🤝 BANNER SLIDESHOW DE PARCEIROS E APOIADORES */
+    /* 🤝 BANNER SLIDESHOW DE PARCEIROS E APOIADORES (Identificado com o hero-content) */
     .partners-section {
         margin: 40px auto 0;
         width: 100%;
-        max-width: 900px;
-        padding: 15px 20px;
+        max-width: 850px;
+        padding: 25px 30px;
         text-align: center;
-        background: rgba(255, 255, 255, 0.15);
+        box-sizing: border-box;
+
+        /* Estilização padronizada com o hero-content */
+        background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 16px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         overflow: hidden;
     }
 
     .partners-title {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: var(--text-color, #ffffff);
-        margin-bottom: 12px;
-        opacity: 0.85;
+        color: var(--text-color);
+        margin-bottom: 15px;
     }
 
     .partners-slider {
@@ -175,7 +204,7 @@
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        color: var(--text-color, #ffffff);
+        color: var(--text-color);
         transition: transform 0.3s ease;
         flex-shrink: 0;
     }
@@ -258,8 +287,9 @@
 
 {% block content %}
 <section class="hero-container">
+    <!-- 🌟 BLOCO PRINCIPAL DA HOME ENVOLVIDO PELO CARD -->
     <div class="hero-content">
-        <h1>Hügel Männer Plattler</h1>
+        <h1>HügelMänner Plattler</h1>
         <p>Preservando a alma, a força e a tradição da dança folclórica germânica.</p>
         <a href="{% url 'o_grupo' %}" class="hero-btn">Conheça a nossa história</a>
     </div>

@@ -4,11 +4,19 @@
 
 {% block extra_css %}
 <style>
-    /* Container principal centralizado e com largura controlada para leitura */
+    /* Container principal com o efeito Glassmorphism (card desfocado/escurecido) */
     .about-container {
-        max-width: 800px; /* Largura ideal para leitura de textos longos */
+        max-width: 850px; /* Largura ideal para leitura de textos longos */
         margin: 40px auto; /* Centraliza na tela e dá margem acima/abaixo */
-        padding: 0 25px;   /* Margem interna de segurança para telas de celular */
+        padding: 40px 35px; /* Espaçamento interno em volta de todo o conteúdo */
+        
+        /* 🌟 ESTILO DO CARD (GLASSMORPHISM) */
+        background: rgba(255, 255, 255, 0.6); /* Fundo claro translúcido */
+        backdrop-filter: blur(10px); /* Efeito de desfoque de fundo */
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px; /* Bordas arredondadas */
+        border: 1px solid rgba(249, 115, 22, 0.15); /* Borda suave */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra elegante */
     }
 
     /* Container do brasão para garantir a centralização */
@@ -46,6 +54,13 @@
         line-height: 1.8;
         color: var(--text-color);
         text-align: justify; /* Texto perfeitamente justificado */
+    }
+
+    @media (max-width: 600px) {
+        .about-container {
+            padding: 25px 20px;
+            margin: 20px 15px;
+        }
     }
 </style>
 {% endblock %}

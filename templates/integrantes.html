@@ -11,28 +11,40 @@
         padding: 0 25px;
     }
 
+    /* 🌟 NOVO: Card para o Título e Subtítulo (Estilo Glassmorphism) */
+    .mural-header-card {
+        background: rgba(255, 255, 255, 0.6); /* Fundo claro translúcido */
+        backdrop-filter: blur(10px); /* Efeito de desfoque de fundo */
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15); /* Borda suave */
+        border-radius: 16px; /* Bordas arredondadas */
+        padding: 40px 20px; /* Espaçamento interno */
+        margin-bottom: 50px; /* Espaço entre o header e o grid */
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra elegante */
+    }
+
     .section-title {
         font-size: 2.5rem;
         text-transform: uppercase;
         letter-spacing: 2px;
         margin-bottom: 10px;
         color: var(--text-color);
-        text-align: center;
+        margin-top: 0; /* Remove margem superior padrão */
     }
 
     .section-subtitle {
         font-size: 1.1rem;
         color: #57534e;
-        text-align: center;
-        margin-bottom: 50px;
         font-weight: 300;
+        margin-bottom: 0; /* Remove margem inferior padrão */
     }
 
     /* 🌟 GRID DO MURAL: Configurado para 6 integrantes por linha */
     .mural-grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 6 colunas iguais */
-        gap: 20px; /* Espaçamento ideal para 6 colunas */
+        grid-template-columns: repeat(5, 1fr); /* Mantendo 5 colunas conforme CSS original */
+        gap: 20px; /* Espaçamento ideal */
     }
 
     /* Responsividade: Ajusta o mural dinamicamente para telas menores */
@@ -48,12 +60,22 @@
             grid-template-columns: repeat(2, 1fr); /* 2 por linha em tablets */
             gap: 15px;
         }
+        .section-title {
+            font-size: 2rem;
+        }
     }
 
     @media (max-width: 480px) {
         .mural-grid {
             grid-template-columns: 1fr; /* 1 por linha em celulares */
             gap: 15px;
+        }
+        .mural-header-card {
+            padding: 30px 15px;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.75rem;
         }
     }
 
@@ -114,7 +136,7 @@
         text-transform: capitalize;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; /* Adiciona '...' se o nome for muito comprido para a coluna */
+        text-overflow: ellipsis; /* Adiciona '...' se o nome for muito comprido */
     }
 
     /* Estilo para o Instagram */
@@ -155,8 +177,12 @@
 
 {% block content %}
 <div class="mural-container">
-    <h2 class="section-title">Integrantes</h2>
-    <p class="section-subtitle">Os homens das montanhas que mantêm viva a nossa tradição</p>
+    
+    <!-- 🌟 O Título e Subtítulo agora estão dentro deste Card -->
+    <div class="mural-header-card">
+        <h2 class="section-title">Integrantes</h2>
+        <p class="section-subtitle">Os homens das montanhas que mantêm viva a nossa tradição</p>
+    </div>
 
     <div class="mural-grid">
         {% for integrante in integrantes %}
@@ -178,7 +204,8 @@
             </div>
         </div>
         {% empty %}
-        <p style="grid-column: span 6; text-align: center; color: #6b6661; padding: 40px 0;">
+        <!-- Ajustado span para 5 conforme grid original -->
+        <p style="grid-column: span 5; text-align: center; color: #6b6661; padding: 40px 0;">
             Nenhum integrante cadastrado no momento.
         </p>
         {% endfor %}

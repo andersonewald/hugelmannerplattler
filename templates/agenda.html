@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% block title %}Agenda | Hügel Männer Plattler{% endblock %}
+
 {% block extra_css %}
 <style>
     /* Container principal - Alinhado com o padrão das outras páginas */
@@ -9,13 +11,26 @@
         padding: 0 25px; 
     }
 
-    /* 🌟 TITULO: Igual ao padrão de Integrantes e Blog */
+    /* 🌟 CARD EXCLUSIVO PARA O TÍTULO (Glassmorphism) */
+    .agenda-header-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 16px;
+        padding: 35px 20px;
+        margin-bottom: 40px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 🌟 TITULO: Ajustado sem margens externas para alinhar perfeitamente no card */
     .section-title {
         font-size: 2.5rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 2px;
-        margin-bottom: 40px;
+        margin: 0;
         color: var(--text-color);
         text-align: center;
     }
@@ -33,8 +48,9 @@
         padding: 20px 25px; 
         background: rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border: 1px solid rgba(249, 115, 22, 0.15);
-        border-radius: 8px; 
+        border-radius: 12px; 
         align-items: center; 
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -131,6 +147,13 @@
 
     /* Responsividade para Celulares */
     @media (max-width: 600px) {
+        .agenda-header-card {
+            padding: 25px 15px;
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.75rem;
+        }
         .event-card {
             flex-direction: column;
             align-items: flex-start;
@@ -150,7 +173,7 @@
             padding-bottom: 10px;
         }
         .event-banner {
-            max-width: 100%; /* O card ocupa a largura total no celular */
+            max-width: 100%;
         }
         .event-action {
             margin-top: 5px;
@@ -163,9 +186,14 @@
     }
 </style>
 {% endblock %}
+
 {% block content %}
 <div class="agenda-container">
-    <h2 class="section-title">Próximas Apresentações</h2>
+    
+    <!-- 🌟 CARD SEPARADO ENVOLVENDO APENAS O TÍTULO DA PÁGINA -->
+    <div class="agenda-header-card">
+        <h2 class="section-title">Próximas Apresentações</h2>
+    </div>
     
     <div class="agenda-list">
         {% for evento in eventos %}

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% block title %}Blog | Hügel Männer Plattler{% endblock %}
+
 {% block extra_css %}
 <style>
     /* Container principal - Padronizado com o de Integrantes */
@@ -9,13 +11,26 @@
         padding: 0 25px; 
     }
     
-    /* 🌟 TITULO: Igual ao padrão de Integrantes */
+    /* 🌟 CARD EXCLUSIVO PARA O TÍTULO (Glassmorphism) */
+    .blog-header-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(249, 115, 22, 0.15);
+        border-radius: 16px;
+        padding: 35px 20px;
+        margin-bottom: 40px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 🌟 TITULO: Ajustado para o interior do card */
     .section-title { 
         font-size: 2.5rem;
-        font-weight: 600; /* Peso idêntico ao padrão */
+        font-weight: 600; 
         text-transform: uppercase; 
         letter-spacing: 2px; 
-        margin-bottom: 40px; 
+        margin: 0; 
         color: var(--text-color);
         text-align: center; 
     }
@@ -26,7 +41,7 @@
         gap: 30px; 
     }
     
-    /* 🌟 CARD: Estilizado no mesmo padrão de mural (Bordas e Efeitos) */
+    /* 🌟 CARD: Estilizado no mesmo padrão de mural */
     .blog-card { 
         text-decoration: none; 
         color: var(--text-color); 
@@ -34,15 +49,16 @@
         flex-direction: column;
         background: rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border: 1px solid rgba(249, 115, 22, 0.15);
-        border-radius: 8px;
+        border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     
     .blog-card:hover { 
-        transform: translateY(-5px); /* Efeito flutuar idêntico ao de Integrantes */
+        transform: translateY(-5px); 
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         border-color: var(--orange-accent);
     }
@@ -75,7 +91,7 @@
         gap: 8px;
     }
 
-    /* 🌟 TEXTO DO TITULO DO POST: Padronizado com o tamanho de nome de integrantes */
+    /* 🌟 TEXTO DO TITULO DO POST */
     .blog-card h3 { 
         font-size: 1.25rem;
         font-weight: 600;
@@ -84,22 +100,39 @@
         margin: 0;
     }
 
-    /* 🌟 DATA: Padronizada com a cor e tamanho da linha de informações do integrante */
+    /* 🌟 DATA */
     .blog-date { 
         font-size: 0.85rem; 
         color: #6b6661; 
         display: flex;
         align-items: center;
         gap: 6px;
-        border-top: 1px solid rgba(41, 37, 36, 0.08); /* Linha divisória sutil */
+        border-top: 1px solid rgba(41, 37, 36, 0.08); 
         padding-top: 10px;
         margin-top: 5px;
     }
+
+    /* Responsividade para Celulares */
+    @media (max-width: 600px) {
+        .blog-header-card {
+            padding: 25px 15px;
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.75rem;
+        }
+    }
 </style>
 {% endblock %}
+
 {% block content %}
 <div class="blog-container">
-    <h2 class="section-title">Bastidores & Notícias</h2>
+
+    <!-- 🌟 CARD SEPARADO ENVOLVENDO APENAS O TÍTULO -->
+    <div class="blog-header-card">
+        <h2 class="section-title">Bastidores & Notícias</h2>
+    </div>
+
     <div class="blog-grid">
         {% for post in posts %}
         <a href="{% url 'detalhe_post' post.slug %}" class="blog-card">
